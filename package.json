@@ -1,0 +1,14 @@
+{
+  "name": "fetch",
+  "version": "0.0.1",
+  "description": "Fetch layer architecture",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "demo": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [],
+  "author": "Andrey Horsev",
+  "license": "ISC"
+}
