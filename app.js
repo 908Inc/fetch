@@ -7,4 +7,4 @@ const endpoints = getCompanyEndpoints(COMPANY_CODE);
 
 const { companyName } = methods(endpoints);
 
-companyName().then((data) => console.log(data));
+companyName({ limit: 10, offset: 2 }).then((data) => console.log(data));
