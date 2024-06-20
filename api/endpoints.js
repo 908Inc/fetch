@@ -14,13 +14,7 @@ const todos = (baseURL) => (id) =>
       name: "todo",
       url: `${baseURL}/todos/${id}`,
       method: "GET",
-      errorMessage: "Failed to get todos",
-    },
-    {
-      name: "postByUserId",
-      url: `${baseURL}/posts`,
-      method: "GET",
-      errorMessage: "Failed to get todos",
+      errorMessage: "Failed to get todo",
     },
   ];
 
@@ -37,6 +31,12 @@ const posts = (baseURL) => (id) =>
       url: `${baseURL}/posts/${id}`,
       method: "DELETE",
       errorMessage: "Failed to delete post",
+    },
+    {
+      name: "postByUserId",
+      url: `${baseURL}/posts`,
+      method: "GET",
+      errorMessage: "Failed to get post by user id",
     },
   ];
 

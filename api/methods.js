@@ -5,20 +5,14 @@ const DEFAULT_ERROR = "Unknown error";
 const createEndpointReducer = (accumulator, endpoint) => {
   const { name, url, method, errorMessage = DEFAULT_ERROR, body } = endpoint;
 
-  switch (method) {
-    case "GET":
-      accumulator[name] = (params) => getData(url, params, errorMessage);
-      break;
-    case "POST":
-      accumulator[name] = () => postData(url, body, errorMessage);
-      break;
-    case "DELETE":
-      accumulator[name] = (params) => deleteData(url, params, errorMessage);
-      break;
+  const methodHandlers = {
+    GET: (params) => getData(url, params, errorMessage),
+    POST: () => postData(url, body, errorMessage),
+    DELETE: (params) => deleteData(url, params, errorMessage),
+  };
 
-    default:
-      throw new Error(`Unsupported method: ${method}`);
-  }
+  accumulator[name] = methodHandlers[method];
+
   return accumulator;
 };
 

@@ -3,15 +3,14 @@ import { getTodosEndpoints, getPostsEndpoints } from "./api/endpoints.js";
 
 const { log: logger } = console;
 
-const POST_ID = 12;
 const USER_ID = 9;
+const POST_ID = 12;
 
 const todosEndpoints = getTodosEndpoints(USER_ID);
 const postsEndpoints = getPostsEndpoints(POST_ID);
 
-const { todos, todo, postByUserId } = methods(todosEndpoints);
-
-const { createPost, deletePost } = methods(postsEndpoints);
+const { todos, todo } = methods(todosEndpoints);
+const { postByUserId, createPost, deletePost } = methods(postsEndpoints);
 
 (async () => {
   logger(await todos());
