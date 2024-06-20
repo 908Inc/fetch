@@ -13,9 +13,10 @@ const { todos, todo, postByUserId } = methods(todosEndpoints);
 
 const { createPost, deletePost } = methods(postsEndpoints);
 
-// EXAMPLES:
-todos().then(logger);
-// postByUserId({ userId: USER_ID }).then(logger);
-// todo().then(logger);
-// createPost().then(logger);
-// deletePost().then(logger);
+(async () => {
+  logger(await todos());
+  logger(await postByUserId({ userId: USER_ID }));
+  logger(await todo());
+  logger(await createPost());
+  logger(await deletePost());
+})();
