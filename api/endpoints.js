@@ -1,15 +1,44 @@
-import getData from "./fetch.js";
+export { getTodosEndpoints, getPostsEndpoints };
 
-const BASE_URL = "https://opendatabot.com";
+const BASE_URL = "https://jsonplaceholder.typicode.com";
 
-const getCompanyEndpoints = (baseURL) => (code) =>
+const todos = (baseURL) => (id) =>
   [
     {
-      name: "companyName",
-      url: `${baseURL}/api/v3/public/company/${code}`,
-      method: getData,
-      errorMessage: "Failed to get menu",
+      name: "todos",
+      url: `${baseURL}/todos`,
+      method: "GET",
+      errorMessage: "Failed to get todos",
+    },
+    {
+      name: "todo",
+      url: `${baseURL}/todos/${id}`,
+      method: "GET",
+      errorMessage: "Failed to get todos",
+    },
+    {
+      name: "postByUserId",
+      url: `${baseURL}/posts`,
+      method: "GET",
+      errorMessage: "Failed to get todos",
     },
   ];
 
-export default getCompanyEndpoints(BASE_URL);
+const posts = (baseURL) => (id) =>
+  [
+    {
+      name: "createPost",
+      url: `${baseURL}/posts`,
+      method: "POST",
+      errorMessage: "Failed to create post",
+    },
+    {
+      name: "deletePost",
+      url: `${baseURL}/posts/${id}`,
+      method: "DELETE",
+      errorMessage: "Failed to delete post",
+    },
+  ];
+
+const getTodosEndpoints = todos(BASE_URL);
+const getPostsEndpoints = posts(BASE_URL);

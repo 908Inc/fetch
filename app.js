@@ -1,10 +1,21 @@
 import methods from "./api/methods.js";
-import getCompanyEndpoints from "./api/endpoints.js";
+import { getTodosEndpoints, getPostsEndpoints } from "./api/endpoints.js";
 
-const COMPANY_CODE = "00039002";
+const { log: logger } = console;
 
-const endpoints = getCompanyEndpoints(COMPANY_CODE);
+const POST_ID = 12;
+const USER_ID = 9;
 
-const { companyName } = methods(endpoints);
+const todosEndpoints = getTodosEndpoints(USER_ID);
+const postsEndpoints = getPostsEndpoints(POST_ID);
 
-companyName({ limit: 10, offset: 2 }).then((data) => console.log(data));
+const { todos, todo, postByUserId } = methods(todosEndpoints);
+
+const { createPost, deletePost } = methods(postsEndpoints);
+
+// EXAMPLES:
+todos().then(logger);
+// postByUserId({ userId: USER_ID }).then(logger);
+// todo().then(logger);
+// createPost().then(logger);
+// deletePost().then(logger);

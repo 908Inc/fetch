@@ -1,29 +1,73 @@
-const fetchOptions = {
+export { getData, postData, deleteData };
+
+const getOptions = {
   headers: {
     "Content-Type": "application/json",
   },
 };
 
-const DEFAULT_ERROR = "Unknown error";
+const postOptions = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
 
-const getData =
-  (options) =>
-  async (url, params, errorMessage = DEFAULT_ERROR) => {
-    const uri =
-      url + (params ? `?${new URLSearchParams(params).toString()}` : "");
+const deleteOptions = {
+  method: "DELETE",
+};
 
-    console.log(`\nEndpoint URI: ${uri}\n`);
+const getMethod = (options) => async (url, params, errorMessage) => {
+  const uri =
+    url + (params ? `?${new URLSearchParams(params).toString()}` : "");
 
-    try {
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        throw new Error(`Error: ${errorMessage}`);
-      }
-      return response.json();
-    } catch (error) {
-      console.error("Fetch Error:", error);
-      throw error;
+  console.log(`\nEndpoint URI: ${uri}\n`);
+
+  try {
+    const response = await fetch(uri, options);
+    if (!response.ok) {
+      throw new Error(`Error: ${errorMessage}`);
     }
-  };
+    return response.json();
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw error;
+  }
+};
 
-export default getData(fetchOptions);
+const postMethod = (options) => async (url, body, errorMessage) => {
+  options.body = JSON.stringify(body);
+
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`Error: ${errorMessage}`);
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw error;
+  }
+};
+
+const deleteMethod = (options) => async (url, params, errorMessage) => {
+  const uri =
+    url + (params ? `?${new URLSearchParams(params).toString()}` : "");
+
+  console.log(`\nEndpoint URI: ${uri}\n`);
+
+  try {
+    const response = await fetch(uri, options);
+    if (!response.ok) {
+      throw new Error(`Error: ${errorMessage}`);
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw error;
+  }
+};
+
+const getData = getMethod(getOptions);
+const postData = postMethod(postOptions);
+const deleteData = deleteMethod(deleteOptions);
