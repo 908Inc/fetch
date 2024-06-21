@@ -1,21 +1,13 @@
-import { getData, postData, deleteData } from "./fetch.js";
+import methods from "./composer.js";
+import { getTodosEndpoints, getPostsEndpoints } from "./config.js";
 
-const DEFAULT_ERROR = "Unknown error";
+export { todos, todo, postByUserId, createPost, deletePost };
 
-const createEndpointReducer = (accumulator, endpoint) => {
-  const { name, url, method, errorMessage = DEFAULT_ERROR, body } = endpoint;
+const USER_ID = 9;
+const POST_ID = 12;
 
-  const methodHandlers = {
-    GET: (params) => getData(url, params, errorMessage),
-    POST: () => postData(url, body, errorMessage),
-    DELETE: (params) => deleteData(url, params, errorMessage),
-  };
+const todosEndpoints = getTodosEndpoints(USER_ID);
+const postsEndpoints = getPostsEndpoints(POST_ID);
 
-  accumulator[name] = methodHandlers[method];
-
-  return accumulator;
-};
-
-const methods = (endpoints) => endpoints.reduce(createEndpointReducer, {});
-
-export default methods;
+const { todos, todo } = methods(todosEndpoints);
+const { postByUserId, createPost, deletePost } = methods(postsEndpoints);
