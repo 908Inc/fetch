@@ -1,6 +1,18 @@
-import createAPI from "./helpers.js";
+import createAPI from "./index.js";
 
 const { API_URL } = process.env;
+
+/**
+ * @typedef {Object} ConfigItem
+ * @property {string} name - The name of the method.
+ * @property {string} method - The HTTP method.
+ * @property {function} path - A function that generates the API path.
+ * @property {Object} [headers] - Optional headers for the request.
+ */
+
+/**
+ * @type {ConfigItem[]}
+ */
 
 const config = [
   {
