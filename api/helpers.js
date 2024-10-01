@@ -1,4 +1,5 @@
-import http from "../interfaces/axios.js";
+// import http from "../interfaces/axios.js";
+import http from "../interfaces/fetch.js";
 
 const createEndpoint =
   (API) =>
