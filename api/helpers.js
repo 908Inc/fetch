@@ -1,4 +1,4 @@
-import http from "../interfaces/http.js";
+import http from "../interfaces/axios.js";
 
 const createEndpoint =
   (API) =>
