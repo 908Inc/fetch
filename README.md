@@ -1,5 +1,6 @@
 # Fetch layer architecture
 
 ```bash
-npm run demo
+npm i
+npm run dev
 ```

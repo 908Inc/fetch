@@ -1,17 +1,18 @@
-import {
-  todos,
-  todo,
-  postByUserId,
-  createPost,
-  deletePost,
-} from "./api/methods.js";
+import jsonplaceholder from "./api/jsonplaceholder.js";
 
-const { log: logger } = console;
+const { creatingResource, gettingResource, listingAllresources } =
+  jsonplaceholder;
 
 (async () => {
-  logger(await todos());
-  logger(await postByUserId({ userId: 13 }));
-  logger(await todo());
-  logger(await createPost());
-  logger(await deletePost());
+  console.log(await listingAllresources());
+  console.log(await gettingResource({ id: 42 }));
+  console.log(
+    await creatingResource({
+      payload: {
+        title: "foo",
+        body: "bar",
+        userId: 1,
+      },
+    }),
+  );
 })();
