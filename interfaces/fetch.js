@@ -1,33 +1,34 @@
-const http =
-  (apiUrl) =>
-  (path, method, headers = {}) =>
-  async (options = null) => {
-    const config = {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        ...headers,
-      },
-    };
+const DEFAULT_HEADERS = {
+  "Content-Type": "application/json",
+};
 
-    if (options && options.payload) {
-      config.body = JSON.stringify(options.payload);
-    }
-
-    const dynamicPath = path(options);
-
-    try {
-      const response = await fetch(`${apiUrl}${dynamicPath}`, config);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error("Error during fetch:", error.message);
-      throw error;
-    }
+const http = (apiUrl) => async (path, method, headers, options) => {
+  const config = {
+    method,
+    headers: {
+      ...DEFAULT_HEADERS,
+      ...headers,
+    },
   };
+
+  if (options && options.payload) {
+    config.body = JSON.stringify(options.payload);
+  }
+
+  const dynamicPath = path(options);
+
+  try {
+    const response = await fetch(`${apiUrl}${dynamicPath}`, config);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error during fetch:", error.message);
+    throw error;
+  }
+};
 
 export default http;

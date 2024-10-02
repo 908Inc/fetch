@@ -1,4 +1,4 @@
-import createAPI from "./index.js";
+import createAPI from "./api.js";
 
 const { API_URL } = process.env;
 
@@ -29,7 +29,7 @@ const config = [
     path: ({ id }) => `/posts/${id}`,
   },
   {
-    name: "listingAllresources",
+    name: "listingAllResources",
     method: "GET",
     path: () => "/posts",
   },
