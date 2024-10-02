@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const http = (apiUrl) => async (path, method, headers, options) => {
+const http = (apiUrl) => async (path, method, headers, options, mapper) => {
   const config = {
     method,
     url: `${apiUrl}${path(options)}`, // Concatenating the API base URL with the dynamic path
@@ -18,7 +18,10 @@ const http = (apiUrl) => async (path, method, headers, options) => {
   try {
     // Make the request with axios
     const response = await axios(config);
-    return response.data; // Axios automatically handles JSON parsing
+
+    const { data } = response;
+
+    return mapper ? mapper(data) : data; // Axios automatically handles JSON parsing
   } catch (error) {
     // Axios errors provide better error handling, using error.response to get status and data
     if (error.response) {

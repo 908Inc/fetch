@@ -1,13 +1,14 @@
 import createAPI from "./api.js";
 
-const { API_URL } = process.env;
+const jsonplaceholderApiUrl = "https://jsonplaceholder.typicode.com";
 
 /**
  * @typedef {Object} ConfigItem
  * @property {string} name - The name of the method.
- * @property {string} method - The HTTP method.
+ * @property {"GET" | "POST" | "PUT" | "DELETE" | "PATCH"} method - The HTTP method.
  * @property {function} path - A function that generates the API path.
  * @property {Object} [headers] - Optional headers for the request.
+ * @property {function} [mapper] - Optional function to map the response data.
  */
 
 /**
@@ -27,6 +28,7 @@ const config = [
     name: "gettingResource",
     method: "GET",
     path: ({ id }) => `/posts/${id}`,
+    mapper: ({ id, title }) => ({ id, title }),
   },
   {
     name: "listingAllResources",
@@ -66,6 +68,6 @@ const config = [
   },
 ];
 
-const jsonplaceholder = createAPI(API_URL, config);
+const jsonplaceholder = createAPI(jsonplaceholderApiUrl, config);
 
 export default jsonplaceholder;

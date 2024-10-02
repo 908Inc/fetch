@@ -1,6 +1,6 @@
 import request from "request";
 
-const http = (apiUrl) => async (path, method, headers, options) => {
+const http = (apiUrl) => async (path, method, headers, options, mapper) => {
   return new Promise((resolve, reject) => {
     const dynamicPath = path(options);
     const url = `${apiUrl}${dynamicPath}`;
@@ -26,7 +26,8 @@ const http = (apiUrl) => async (path, method, headers, options) => {
         // eslint-disable-next-line no-magic-numbers
       } else if (response.statusCode >= 200 && response.statusCode < 300) {
         try {
-          resolve(JSON.parse(body));
+          const data = JSON.parse(body);
+          resolve(mapper ? mapper(data) : data);
         } catch (err) {
           reject(new Error("Failed to parse response JSON"));
         }

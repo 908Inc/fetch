@@ -4,8 +4,8 @@ import http from "../interfaces/fetch.js";
 
 const addEndpoint =
   (API) =>
-  (endpoints, { method, path, name, headers }) => ({
-    [name]: (options) => API(path, method, headers, options),
+  (endpoints, { method, path, name, headers, mapper }) => ({
+    [name]: (options) => API(path, method, headers, options, mapper),
     ...endpoints,
   });
 

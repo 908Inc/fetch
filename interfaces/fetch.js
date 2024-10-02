@@ -2,7 +2,7 @@ const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
 };
 
-const http = (apiUrl) => async (path, method, headers, options) => {
+const http = (apiUrl) => async (path, method, headers, options, mapper) => {
   const config = {
     method,
     headers: {
@@ -24,7 +24,9 @@ const http = (apiUrl) => async (path, method, headers, options) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+
+    return mapper ? mapper(data) : data;
   } catch (error) {
     console.error("Error during fetch:", error.message);
     throw error;
